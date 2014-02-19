@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'shift_planning/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ShiftPlanning"
+  spec.name          = "shift_planning"
   spec.version       = ShiftPlanning::VERSION
   spec.authors       = ["Tyler Mercier"]
   spec.email         = ["tylermercier@gmail.com"]
