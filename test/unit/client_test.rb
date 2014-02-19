@@ -12,6 +12,29 @@ describe 'Client' do
       .to_return(:status => 200, :body => "{\"token\":\"1714d482a0f3a5e3472fb51c481dc571fd6724e1\"}", :headers => {})
   end
 
+  describe '#initialize' do
+    it 'username is a required field' do
+      err = -> {
+        ShiftPlanning::Client.new(:password => '', :key => '')
+      }.must_raise ArgumentError
+      err.message.must_match /username/
+    end
+
+    it 'password is a required field' do
+      err = -> {
+        ShiftPlanning::Client.new(:username => '', :key => '')
+      }.must_raise ArgumentError
+      err.message.must_match /password/
+    end
+
+    it 'key is a required field' do
+      err = -> {
+        ShiftPlanning::Client.new(:username => '', :password => '')
+      }.must_raise ArgumentError
+      err.message.must_match /key/
+    end
+  end
+
   describe '#authenticate' do
     it 'requests auth token and saves it' do
       @client.authenticate

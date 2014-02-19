@@ -5,11 +5,11 @@ require 'base64'
 module ShiftPlanning
   class Client
     def initialize(config = {})
-      raise ArgumentError.new('Missing username') unless config.has_key? :username
+      raise ArgumentError.new('Missing username') unless config.key? :username
       @username = config[:username]
-      raise ArgumentError.new('Missing password') unless config.has_key? :password
+      raise ArgumentError.new('Missing password') unless config.key? :password
       @password = config[:password]
-      raise ArgumentError.new('Missing api key') unless config.has_key? :key
+      raise ArgumentError.new('Missing api key') unless config.key? :key
       @key = config[:key]
       @url = 'http://www.shiftplanning.com/api/'
       @headers = {
