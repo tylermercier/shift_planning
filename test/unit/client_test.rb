@@ -52,8 +52,8 @@ describe 'Client' do
         "id" => 1,
         "addskill" => 2
       }
-      @client.request('staff.employee', args, "UPDATE")
-      assert true
+      employee = @client.request('staff.employee', args, "UPDATE")
+      assert 1, employee[:id]
     end
   end
 end
