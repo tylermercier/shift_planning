@@ -35,7 +35,17 @@ module ShiftPlanning
       @token = JSON.parse(response)["token"]
     end
 
-    def request(api_module, request={}, method='GET')
+    def get(api_module, request={})
+      request("GET", api_module, request)
+    end
+
+    def update(api_module, request={})
+      request("UPDATE", api_module, request)
+    end
+
+    private
+
+    def request(method, api_module, request)
       authenticate unless authenticated?
 
       body = body_formatter({
