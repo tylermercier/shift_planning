@@ -5,7 +5,7 @@ module ShiftPlanning
   extend self
 
   def init(options={})
-    @@client = ShiftPlanning::Client.new(options)
+    @@client = Client.new(options)
   end
 
   def skills
