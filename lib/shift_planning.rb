@@ -8,6 +8,24 @@ module ShiftPlanning
     @@client = Client.new(options)
   end
 
+  def get(api_module, request={})
+    @@client.get(api_module, request)
+  end
+
+  def create(api_module, request={})
+    @@client.create(api_module, request)
+  end
+
+  def update(api_module, request={})
+    @@client.update(api_module, request)
+  end
+
+  def delete(api_module, request={})
+    @@client.delete(api_module, request)
+  end
+
+  # convience methods
+
   def skills
     @@client.get('staff.skills')
   end

@@ -39,8 +39,16 @@ module ShiftPlanning
       request("GET", api_module, request)
     end
 
+    def create(api_module, request={})
+      request("CREATE", api_module, request)
+    end
+
     def update(api_module, request={})
       request("UPDATE", api_module, request)
+    end
+
+    def delete(api_module, request={})
+      request("DELETE", api_module, request)
     end
 
     private
