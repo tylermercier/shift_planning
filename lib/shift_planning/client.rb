@@ -1,6 +1,7 @@
-require 'http'
-require 'json'
-require 'base64'
+require "http"
+require "json"
+require "base64"
+require_relative "api_error"
 
 module ShiftPlanning
   class Client
@@ -63,7 +64,9 @@ module ShiftPlanning
         "request" => request
       })
       response = HTTP.with(@headers).post(@url, body)
-      JSON.parse(response)
+      result = JSON.parse(response)
+      raise ApiError.new(result) if result["status"] != "1"
+      result
     end
 
     def body_formatter(body)
