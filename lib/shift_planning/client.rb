@@ -65,8 +65,12 @@ module ShiftPlanning
       })
       response = HTTP.with(@headers).post(@url, body)
       result = JSON.parse(response)
-      raise ApiError.new(result) if result["status"] != "1"
+      raise ApiError.new(result) if is_error_response? result
       result
+    end
+
+    def is_error_response?(response)
+      response["status"] != 1
     end
 
     def body_formatter(body)
