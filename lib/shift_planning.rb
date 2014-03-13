@@ -24,7 +24,7 @@ module ShiftPlanning
     @@client.delete(api_module, request)
   end
 
-  # convience methods
+  # convenience methods
 
   def skills
     @@client.get('staff.skills')
