@@ -1,17 +1,22 @@
 require "http"
 require "json"
 require "base64"
-require_relative "api_error"
 
 module ShiftPlanning
   class Client
+    attr_accessor :strict
+
     def initialize(config = {})
-      raise ArgumentError.new('Missing username') unless config.key? :username
+      raise ArgumentError.new('Missing username') unless config.key?(:username)
       @username = config[:username]
-      raise ArgumentError.new('Missing password') unless config.key? :password
+
+      raise ArgumentError.new('Missing password') unless config.key?(:password)
       @password = config[:password]
-      raise ArgumentError.new('Missing api key') unless config.key? :key
+
+      raise ArgumentError.new('Missing api key') unless config.key?(:key)
       @key = config[:key]
+
+      @strict = config.key?(:strict) ? config[:strict] : true
       @url = 'http://www.shiftplanning.com/api/'
       @headers = {
         "Content-Type" => "application/x-www-form-urlencoded"
@@ -36,24 +41,6 @@ module ShiftPlanning
       @token = JSON.parse(response)["token"]
     end
 
-    def get(api_module, request={})
-      request("GET", api_module, request)
-    end
-
-    def create(api_module, request={})
-      request("CREATE", api_module, request)
-    end
-
-    def update(api_module, request={})
-      request("UPDATE", api_module, request)
-    end
-
-    def delete(api_module, request={})
-      request("DELETE", api_module, request)
-    end
-
-    private
-
     def request(method, api_module, request)
       authenticate unless authenticated?
 
@@ -65,7 +52,7 @@ module ShiftPlanning
       })
       response = HTTP.with(@headers).post(@url, body)
       result = JSON.parse(response)
-      raise ApiError.new(result) if is_error_response? result
+      raise ApiError.new(result) if @strict && is_error_response?(result)
       result
     end
 
