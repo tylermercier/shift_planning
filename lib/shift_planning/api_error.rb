@@ -1,9 +1,13 @@
 module ShiftPlanning
   class ApiError < Exception
     attr_accessor :message
+    attr_accessor :request_body
+    attr_accessor :response_body
 
-    def initialize(response)
+    def initialize(response, request_body, response_body)
       @message = message_for_status(response["status"])
+      @request_body = request_body
+      @repsonse_body = response_body
     end
 
     def message_for_status(status)
