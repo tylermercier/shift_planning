@@ -52,7 +52,7 @@ module ShiftPlanning
       })
       response = HTTP.with(@headers).post(@url, body)
       result = JSON.parse(response)
-      raise ApiError.new(result) if @strict && is_error_response?(result)
+      raise ApiError.new(result, body, response) if @strict && is_error_response?(result)
       result
     end
 
