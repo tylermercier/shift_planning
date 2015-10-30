@@ -7,7 +7,7 @@ module ShiftPlanning
     def initialize(response, request_body, response_body)
       @message = message_for_status(response["status"])
       @request_body = request_body
-      @repsonse_body = response_body
+      @response_body = response_body
     end
 
     def message_for_status(status)
